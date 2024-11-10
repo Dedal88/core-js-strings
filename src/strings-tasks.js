@@ -41,17 +41,17 @@ function getStringLength(value) {
  *   isString(new String('test')) => true
  */
 function isString(value) {
-  if (typeof value === 'string') {
+  if (typeof value === 'string' || value instanceof String) {
     return true;
   }
   if (value === null || value === undefined) {
     return false;
   }
-  if (typeof value === 'object') {
-    if (typeof value[0] === 'string') {
-      return true;
-    }
-  }
+  // if (typeof value === 'object') {
+  //   if (typeof value[0] === 'string') {
+  //     return true;
+  //   }
+  // }
   return false;
 }
 
@@ -147,8 +147,11 @@ function removeTrailingWhitespaces(value) {
  *   repeatString('', 3) => ''
  *   repeatString('abc', -2) => ''
  */
-function repeatString(/* str, times */) {
-  throw new Error('Not implemented');
+function repeatString(str, times) {
+  if (times < 0) {
+    return '';
+  }
+  return str.repeat(times);
 }
 
 /**
