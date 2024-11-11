@@ -167,7 +167,8 @@ function repeatString(str, times) {
  *   removeFirstOccurrences('ABABAB', 'BA') => 'ABAB'.
  */
 function removeFirstOccurrences(str, value) {
-  return str.replace(value, '');
+  const indexVal = str.indexOf(value);
+  return indexVal === -1 ? str : str.replace(value, '');
 }
 
 /**
@@ -184,7 +185,9 @@ function removeFirstOccurrences(str, value) {
  */
 function removeLastOccurrences(str, value) {
   const indexStart = str.lastIndexOf(value);
-  return str.slice(0, indexStart).concat(str.slice(indexStart + value.length));
+  return indexStart === -1
+    ? str
+    : str.slice(0, indexStart).concat(str.slice(indexStart + value.length));
 }
 
 /**
@@ -256,15 +259,9 @@ function endsWith(str, substr) {
  *   formatTime(0, 0) => "00:00"
  */
 function formatTime(minutes, seconds) {
-  let min = `${minutes}`;
-  let sec = `${seconds}`;
+  const min = minutes.toString().padStart(2, '0');
+  const sec = seconds.toString().padStart(2, '0');
 
-  if (min.length !== 2) {
-    min = `0${min}`;
-  }
-  if (sec.length !== 2) {
-    sec = `0${sec}`;
-  }
   return `${min}:${sec}`;
 }
 
