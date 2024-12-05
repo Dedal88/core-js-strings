@@ -356,11 +356,11 @@ function countVowels(str) {
  *   isPalindrome('No lemon, no melon') => true
  */
 function isPalindrome(str) {
-  const str2 = Array.from(str).reverse().join().replaceAll(',', '');
-  if (
-    str.replaceAll(' ', '').replaceAll(',', '').toLowerCase() ===
-    str2.replaceAll(' ', '').toLowerCase()
-  ) {
+  const str2 = str
+    .replaceAll(/[^\w\s]|_/g, '')
+    .replaceAll(' ', '')
+    .toLowerCase();
+  if (str2 === reverseString(str2)) {
     return true;
   }
   return false;
@@ -512,16 +512,17 @@ function extractEmails(str) {
  *
  */
 function encodeToRot13(str) {
-  const usual = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
-  const r13 = 'NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm';
-  const strArr = str.split('');
-  const total = [];
+  const usual = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ abcdefghijklmnopqrstuvwxyz!?.,';
+  const r13 = 'NOPQRSTUVWXYZABCDEFGHIJKLM nopqrstuvwxyzabcdefghijklm!?.,';
+  // const strArr = str.split('');
+  let total = '';
   let i = 0;
-  while (i < strArr.length) {
-    total.push(r13[usual.indexOf(strArr[i])]);
+  while (i < str.length) {
+    const j = usual.indexOf(str[i]);
+    total += r13[j];
     i += 1;
   }
-  return total.join('');
+  return total;
 }
 
 /**
